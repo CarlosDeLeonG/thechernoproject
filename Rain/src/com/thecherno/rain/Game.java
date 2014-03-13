@@ -1,4 +1,4 @@
-package com.thecherno;
+package com.thecherno.rain;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
+
+import com.thecherno.rain.graphics.Screen;
 
 public class Game extends Canvas implements Runnable {
 
@@ -24,6 +26,8 @@ public class Game extends Canvas implements Runnable {
 	private JFrame frame;
 	private boolean running = false;
 	
+	private Screen screen;
+	
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 	private int[] pixels = 	((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	
@@ -32,6 +36,7 @@ public class Game extends Canvas implements Runnable {
 		setPreferredSize(size);
 		
 		frame = new JFrame();
+		screen = new Screen(width, height);
 	}
 	
 	public synchronized void start() {
