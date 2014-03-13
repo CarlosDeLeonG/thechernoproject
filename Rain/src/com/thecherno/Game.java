@@ -1,13 +1,19 @@
 package com.thecherno;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
 public class Game extends Canvas implements Runnable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static int width 	= 300;
 	public static int height 	= width / 16 * 9;
 	public static int scale		= 3;
@@ -41,7 +47,8 @@ public class Game extends Canvas implements Runnable {
 	@Override
 	public void run() {
 		while (running) {
-			
+			update();
+			render();
 		}
 	}
 	
@@ -55,6 +62,13 @@ public class Game extends Canvas implements Runnable {
 			createBufferStrategy(3);
 			return;
 		}
+		Graphics g = bs.getDrawGraphics();
+		//-------- Where all graphics happens -------
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, getWidth(), getHeight());
+		//-------------------------------------------
+		g.dispose();
+		bs.show();
 	}
 	
 	public static void main(String[] args) {
