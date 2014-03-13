@@ -1,13 +1,27 @@
 package com.thecherno;
 
-public class Game implements Runnable {
+import java.awt.Canvas;
+import java.awt.Dimension;
+import java.awt.image.BufferStrategy;
+
+import javax.swing.JFrame;
+
+public class Game extends Canvas implements Runnable {
 
 	public static int width 	= 300;
 	public static int height 	= width / 16 * 9;
 	public static int scale		= 3;
 
 	private Thread thread;
+	private JFrame frame;
 	private boolean running = false;
+	
+	public Game() {
+		Dimension size = new Dimension(width * scale, height * scale);
+		setPreferredSize(size);
+		
+		frame = new JFrame();
+	}
 	
 	public synchronized void start() {
 		running = true;
@@ -29,6 +43,31 @@ public class Game implements Runnable {
 		while (running) {
 			
 		}
+	}
+	
+	public void update() {
+		
+	}
+	
+	public void render() {
+		BufferStrategy bs = getBufferStrategy();
+		if (bs == null) {
+			createBufferStrategy(3);
+			return;
+		}
+	}
+	
+	public static void main(String[] args) {
+		Game game = new Game();
+		game.frame.setResizable(false);
+		game.frame.setTitle("Rain");
+		game.frame.add(game);
+		game.frame.pack();
+		game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		game.frame.setLocationRelativeTo(null);
+		game.frame.setVisible(true);
+		
+		game.start();
 	}
 	
 }
