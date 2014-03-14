@@ -31,9 +31,9 @@ public class Screen {
 		if (counter % 80 == 0)  ytime++;
 		
 		for (int y = 0; y < height; y++) {
-			if(ytime >= height) break;
+			if(ytime < 0 || ytime >= height) break;
 			for (int x = 0; x < width; x++) {
-				if(xtime >= height) break;
+				if(xtime < 0 || xtime >= height) break;
 				pixels[xtime + ytime * width] = Color.PINK.getRGB();
 			}
 		}

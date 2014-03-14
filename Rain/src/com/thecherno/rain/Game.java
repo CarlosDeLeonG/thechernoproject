@@ -56,10 +56,30 @@ public class Game extends Canvas implements Runnable {
 
 	@Override
 	public void run() {
+		// How may times we render per second...
+		long lastTime = System.nanoTime();
+		final double ns = 1000000000.0 / 60.0;
+		double delta = 0;
+		boolean c = false;
 		while (running) {
-			update();
+			long now = System.nanoTime();
+			delta += (now - lastTime) / ns;
+			if (c) {
+				System.out.println("Time taken: " + (now - lastTime));
+				System.exit(0);
+			}
+			lastTime = now;
+			while (delta >= 1) {
+				update();
+				delta--;
+				
+			}
+			//System.out.println(now - lastTime);
+			//update();
 			render();
+			c = true;
 		}
+		stop();
 	}
 	
 	public void update() {
